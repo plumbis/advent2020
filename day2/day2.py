@@ -25,7 +25,26 @@ def part_one():
     print(valid_passwords)
 
 def part_two():
-    pass
+    valid_passwords = 0
+    with open("day2/input.txt", "r") as in_file:
+        for line in in_file:
+            policy = line[:line.find(" ")].strip()
+            first_index = int(policy[:policy.find("-")])
+            second_index = int(policy[policy.find("-") + 1:])
+            password = line[line.find(":") + 1:].strip()
+            letter = line[line.find(" "):line.find(":")].strip()
+
+            try:
+                if letter == password[first_index - 1]:
+                    if not letter == password[second_index - 1]:
+                        valid_passwords = valid_passwords + 1
+                else:
+                    if letter == password[second_index - 1]:
+                        valid_passwords = valid_passwords + 1
+            except:
+                continue
+
+    print(valid_passwords)
 
 def main():
     part_one()
